@@ -1,0 +1,53 @@
+// Content script for smooth scrolling - ChatGPT version
+
+(function() {
+  'use strict';
+  
+  let keys = {};
+  
+  function scrollPage(amount) {
+    // ChatGPT's actual scroll container
+    const container = document.querySelector('[class*="scrollbar-gutter"]') ||
+                     document.querySelector('[class*="overflow-y-auto"]') ||
+                     document.querySelector('main');
+    
+    if (container) {
+      container.scrollTop += amount;
+      console.log('Scrolled by', amount, 'px. Position:', container.scrollTop);
+    } else {
+      console.log('No scroll container found!');
+    }
+  }
+  
+  // Track all key states
+  window.addEventListener('keydown', function(e) {
+    keys[e.key] = true;
+    
+    // Check for Alt + ArrowUp
+    if (keys['Alt'] && keys['ArrowUp']) {
+      e.preventDefault();
+      e.stopPropagation();
+      e.stopImmediatePropagation();
+      scrollPage(-100);
+      keys = {}; // Reset
+      return false;
+    }
+    
+    // Check for Alt + ArrowDown
+    if (keys['Alt'] && keys['ArrowDown']) {
+      e.preventDefault();
+      e.stopPropagation();
+      e.stopImmediatePropagation();
+      scrollPage(100);
+      keys = {}; // Reset
+      return false;
+    }
+  }, true);
+  
+  window.addEventListener('keyup', function(e) {
+    delete keys[e.key];
+  }, true);
+  
+  console.log('✓ ChatGPT scroll shortcuts: Alt+↑ (up), Alt+↓ (down)');
+})();
+
