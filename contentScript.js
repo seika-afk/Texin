@@ -1,4 +1,7 @@
 let x=0 
+let arr=[]
+
+
 function scroll(x){
 	const container=document.querySelector('[class*="scrollbar-gutter"]');
 
@@ -15,6 +18,7 @@ function scroll(x){
 
 document.addEventListener("keydown",(e)=>{
 	if (e.ctrlKey && e.altKey && e.key=="q"){
+
 		const selection=window.getSelection();
 		const text= selection.toString();
 		if(text.length>0){
@@ -26,8 +30,16 @@ document.addEventListener("keydown",(e)=>{
 			if(container){
 				x=container.scrollTop;
 				console.log("saved text ::: ",text)
-				toast(`Saved position : ${Math.round(x)}px`);
+				chrome.runtime.sendMessage({
+					action:"addText",
+					text:text,
+					id : arr.length,
+					position:x
 
+
+				},(response)=>{console.log("sent msg to js")})
+				toast(`Saved position : ${Math.round(x)}px`);
+				arr.push(x)	
 			}
 
 

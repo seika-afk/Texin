@@ -4,11 +4,14 @@
   "description": "Pin to rollback.",
   "manifest_version": 3,
 
-  "permissions": ["storage","notifications"],
+  "permissions": ["activeTab","storage","notifications"],
 
   "action": {
     "default_title": "Texin",
     "default_popup": "popup.html"
+  },
+  "background": {
+    "service_worker": "background.js"
   },
 
   "content_scripts": [
