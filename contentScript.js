@@ -1,6 +1,13 @@
+window.addEventListener('load',()=>{
+chrome.storage.local.clear(()=>{
+console.log("storage cleared")
+
+})
+
+})
+
 let x=0 
 let arr=[]
-
 
 function scroll(x){
 	const container=document.querySelector('[class*="scrollbar-gutter"]');
@@ -15,6 +22,12 @@ function scroll(x){
 
 }
 
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+	if (request.action === "scrollTo") {
+		scroll(arr[request.id])
+
+	}
+});
 
 document.addEventListener("keydown",(e)=>{
 	if (e.ctrlKey && e.altKey && e.key=="q"){

@@ -1,5 +1,7 @@
 let savedTexts= [];
 
+
+
 chrome.runtime.onMessage.addListener((request,sender,sendResponse)=>{
 if (request.action=="addText"){
 	savedTexts.push({
@@ -29,7 +31,26 @@ return true
 }
 
 
+if (request.action=="scroll"){
+//send message to contentScript with the id 
+chrome.tabs.query({active:true,currentWindow:true},(tabs)=>{
+chrome.tabs.sendMessage(tabs[0].id,{
+	action:"scrollTo",
+	id:request.id
+
+
+})
+
+})
+sendResponse({success:true});
+return true
+
+}
+
+
 
 
 
 })
+
+
