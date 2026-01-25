@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const promo = document.querySelector(".heading");
     if (promo) {
         promo.addEventListener("click", () => {
-            window.open("https://www.youtube.com/live/dQw4w9WgXcQ");
+            window.open("https://texin.vercel.app/donate.html");
         });
     }
     
